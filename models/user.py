@@ -12,7 +12,6 @@ class User(BaseModel, Base):
     """This class defines the user"""
     __tablename__ = "users"
     if storage_type == "db":
-        
         email = Column(String(128), nullable=False)
         password = Column(String(128), nullable=False)
         first_name = Column(String(128), nullable=True)
