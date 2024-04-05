@@ -4,6 +4,7 @@ import os
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
 from sqlalchemy.orm import relationship
+from models.review import Review
 
 storage_type = os.getenv("HBNB_TYPE_STORAGE")
 
@@ -25,6 +26,8 @@ class Place(BaseModel, Base):
 
         user = relationship("User", back_populates="places")
         cities = relationship("City", back_populates="places")
+        reviews = relationship("Review", back_populates="place",
+                               cascade="delete, delete-orphan")
     else:
         city_id = ""
         user_id = ""
@@ -36,3 +39,12 @@ class Place(BaseModel, Base):
         price_by_night = 0
         latitude = 0.0
         longitude = 0.0
+
+        @property
+        def reviews (self):
+            """Retrives reviews objects
+            where place_id match """
+            from models import storage
+            list_of_reviews = storage.all(Review)
+            return [review for review in list_of_reviews.values()
+                    if review.place_id == self.id]
