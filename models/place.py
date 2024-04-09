@@ -2,11 +2,20 @@
 """ Place Module for HBNB project """
 import os
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, Integer, Float, ForeignKey
+from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
 from models.review import Review
+from models.amenity import Amenity
 
 storage_type = os.getenv("HBNB_TYPE_STORAGE")
+
+if storage_type == "db":
+    place_amenity = Table(
+        'place_amenity',
+        Base.metadata,
+        Column('place_id', String(60), ForeignKey('places.id')),
+        Column('amenity_id', String(60), ForeignKey('amenities.id'))
+    )
 
 
 class Place(BaseModel, Base):
@@ -28,6 +37,9 @@ class Place(BaseModel, Base):
         cities = relationship("City", back_populates="places")
         reviews = relationship("Review", back_populates="place",
                                cascade="delete, delete-orphan")
+        amenities = relationship("Amenity", secondary='place_amenity',
+                                 viewonly=False,
+                                 overlaps="place_amenities")
     else:
         city_id = ""
         user_id = ""
@@ -41,10 +53,19 @@ class Place(BaseModel, Base):
         longitude = 0.0
 
         @property
-        def reviews (self):
+        def reviews(self):
             """Retrives reviews objects
             where place_id match """
             from models import storage
             list_of_reviews = storage.all(Review)
             return [review for review in list_of_reviews.values()
                     if review.place_id == self.id]
+
+        @property
+        def amenities(self):
+            return [Amenity(id=amenity_id) for amenity_id in self.amenity_ids]
+
+        @amenities.setter
+        def amenities(self, amenity):
+            if isinstance(amenity, Amenity):
+                self.amenity_ids.append(amenity.id)
