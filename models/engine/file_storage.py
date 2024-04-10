@@ -20,7 +20,7 @@ class FileStorage:
                 tmp_list = key.split('.')
                 class_name = tmp_list[0]
                 if class_name == cls.__name__:
-                    output_dic.update({key:value})
+                    output_dic.update({key: value})
             return output_dic
 
     def new(self, obj):
