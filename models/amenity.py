@@ -8,7 +8,7 @@ from sqlalchemy.orm import relationship
 storage_type = os.getenv("HBNB_TYPE_STORAGE")
 
 
-class Amenity(BaseModel):
+class Amenity(BaseModel, Base):
     """Represents amenities a place can have"""
     if storage_type == "db":
         __tablename__ = "amenities"

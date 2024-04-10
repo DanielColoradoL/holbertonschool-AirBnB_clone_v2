@@ -13,8 +13,8 @@ if storage_type == "db":
     place_amenity = Table(
         'place_amenity',
         Base.metadata,
-        Column('place_id', String(60), ForeignKey('places.id')),
-        Column('amenity_id', String(60), ForeignKey('amenities.id'))
+        Column('place_id', String(60), ForeignKey('places.id'), nullable=False),
+        Column('amenity_id', String(60), ForeignKey('amenities.id'), nullable=False)
     )
 
 
@@ -51,6 +51,7 @@ class Place(BaseModel, Base):
         price_by_night = 0
         latitude = 0.0
         longitude = 0.0
+        amenity_ids = []
 
         @property
         def reviews(self):
