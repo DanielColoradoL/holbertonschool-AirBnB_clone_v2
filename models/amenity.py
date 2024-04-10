@@ -10,8 +10,8 @@ storage_type = os.getenv("HBNB_TYPE_STORAGE")
 
 class Amenity(BaseModel, Base):
     """Represents amenities a place can have"""
+    __tablename__ = "amenities"
     if storage_type == "db":
-        __tablename__ = "amenities"
         name = Column(String(128), nullable=False)
         place_amenities = relationship("Place",
                                        secondary='place_amenity',
