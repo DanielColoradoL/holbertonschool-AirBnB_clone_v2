@@ -69,7 +69,9 @@ def num_odd_n(n):
             type_n = "even"
         else:
             type_n = "odd"
-        return render_template("6-number_odd_or_even.html", num_n=n, num_type=type_n)
+        return render_template("6-number_odd_or_even.html",
+                               num_n=n,
+                               num_type=type_n)
 
 
 if __name__ == "__main__":

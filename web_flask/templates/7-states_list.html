@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-    <h1>
+<BODY>
+    <H1>
         States
-    </h1>
-    <ul>
+    </H1>
+    <UL>
         {% for state in states.values() | sort(attribute="name") %}
-        <Li>{{ state.id }}: <B>{{ state.name }}</B></Li>
+        <LI>{{ state.id }}: <B>{{ state.name }}</B></LI>
         {% endfor %}
-    </ul>
-</body>
+    </UL>
+</BODY>
 </html>
