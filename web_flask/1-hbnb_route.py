@@ -18,7 +18,7 @@ def hbnb():
     """
     Prints a message in the /hbnb page
     """
-    return "HBNB!"
+    return "HBNB"
 
 
 if __name__ == "__main__":
