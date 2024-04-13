@@ -1,0 +1,23 @@
+{% extends "6-index.html" %}
+
+{% block states %}
+<UL class="popover">
+    {% for state in states.values() | sort(attribute="name") %}
+    <LI><H2>{{ state.name }}</H2>
+        <UL>
+            {% for city in state.cities | sort(attribute="name") %}
+            <LI>{{ city.name }}</LI>
+            {% endfor %}
+        </UL>
+    </LI>
+    {% endfor %}
+</UL>
+{% endblock %}
+
+{% block amenities %}
+<UL class="popover">
+    {% for amenity in amenities.values() | sort(attribute="name") %}
+    <LI>{{ amenity.name }}</LI>
+    {% endfor %}
+</UL>
+{% endblock %}
